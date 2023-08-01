@@ -11,9 +11,11 @@ const generateId = () => {
 export default function App() {
     const [todos, setTodos] = useState([]);
     const [errors, setErrors] = useState([]);
-    const [initialized, setInitialized] = useState(false);
     const addTodo = (todo) => {
         setTodos(todos.concat({ ...todo, id: generateId() }));
+    }
+    const removeTodo = (todo) =>{
+        setTodos((prevTodos) => prevTodos.filter(item => item.id != todo.id));
     }
     const pushError = (message) => {
         if (errors.find(e => e.message === message)) return;
@@ -23,21 +25,18 @@ export default function App() {
             setErrors((prevErrors) => prevErrors.filter((e) => e !== error));
         }, 3000);
     }
+
+
     useEffect(() => {
         const storedTodos = JSON.parse(localStorage.getItem("todos"));
-        if (storedTodos) {
-            setTodos(storedTodos);
-            setInitialized(true);
-        }
-        console.log('first');
+        if (storedTodos) setTodos(storedTodos);
+        
     }, []);
     useEffect(() => {
-        if (initialized) {
-            localStorage.setItem("todos", JSON.stringify(todos));
-        }
-    }, [todos, initialized]);
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
     return <>
-        <TodoDisplay todos={todos} />
+        <TodoDisplay todos={todos} removeTodo={removeTodo}/>
         <TodoForm addTodo={addTodo} pushError={pushError} />
         <Errors errors={errors} />
     </>

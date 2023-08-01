@@ -26,4 +26,52 @@
         padding: 5px;
         margin-bottom: 20px;
     }
+    &__confirm{
+        margin-top: 20px;
+        font-size: 20px;
+        padding: 10px 30px;
+        border: none;
+        border-radius: 20px;
+        background-color: $green;
+        cursor: pointer;
+    }
+}
+
+.priority{
+    display: flex;
+    justify-content: space-between;
+    &__block{
+        position: relative;
+        display: flex;
+    }
+    &__input{
+        position: absolute;
+        z-index: -1000;
+        opacity: 0;
+        &:hover + .priority__label{
+            opacity: 1;
+        }
+        &:checked + .priority__label{
+            background-color: $green;
+            opacity: 1;
+            color: $white;
+        }
+        &:checked + .critical{
+            background-color: $red;
+        }
+    }
+    &__label{
+        display: block;
+        padding: 10px 15px;
+        margin: 0 10px;
+        background-color: $gray;
+        color:$black;
+        opacity: 0.5;
+        border-radius: 15px;
+        font-size: 14px;
+        line-height: 100%;
+        transition: all .3s ease;
+        cursor: pointer;
+        text-transform: capitalize;
+    }
 }

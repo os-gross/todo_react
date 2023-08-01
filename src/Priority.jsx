@@ -20,7 +20,6 @@ const Priorities = (props) => {
     const changePriority = (e) => {
         setPriority(e.target.id);
     }
-
     return <div onChange={changePriority} className="priority">
         {
             priorities.map((value) => {
